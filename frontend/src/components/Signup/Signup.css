@@ -1,0 +1,55 @@
+/* Center the main container */
+.signup-container {
+    width: 520px;
+    height: 549px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+.signup-logo{
+    margin-bottom: 40px;
+}
+
+  /* Box2 container */ 
+   .signup-box {
+    width: 400px;
+    height: 288px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  /* Input fields (Name, Email, Phone Number) */
+  .signup-box input {
+    width: 100%;
+    height: 50px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    outline: none;
+  }
+  
+  /* Signup Button */
+  .signup-button {
+    width: 100%;
+    height: 50px;
+    background-color: #6E80A4;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .signup-button:hover {
+    background-color: #5a6a90;
+  }
+  

@@ -1,24 +1,30 @@
 const express = require("express");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 const router = express.Router();
-const SECRET_KEY = "your_secret_key"; // Change this in production
 
 // SignUp Route
 router.post("/signup", async (req, res) => {
-  const { email, mobile, password } = req.body;
+  const { name, email, mobile } = req.body;
   try {
-    const existingUser = await User.findOne({ email });
-    if (existingUser) return res.status(400).json({ message: "Email already exists" });
+    if (!name || !email || !mobile) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ email, mobile, password: hashedPassword });
+    // Check if email or mobile already exists
+    const existingUser = await User.findOne({ $or: [{ email }, { mobile }] });
+    if (existingUser) {
+      return res.status(400).json({ message: "Email or Mobile already exists" });
+    }
+
+    const newUser = new User({ name, email, mobile });
     await newUser.save();
-    
-    res.status(201).json({ message: "User created successfully" });
+
+    res.status(201).json({ message: "User created successfully", user: newUser });
   } catch (error) {
+    if (error.code === 11000) {
+      return res.status(400).json({ message: "Email or Mobile number already registered" });
+    }
     res.status(500).json({ message: "Error signing up", error });
   }
 });
