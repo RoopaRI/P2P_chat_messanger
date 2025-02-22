@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { signup } from "../../services/authService";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";  // ✅ Import useNavigate
 import "react-toastify/dist/ReactToastify.css";
 import "./Signup.css";
 import Logo from '../../assets/logo.png';
@@ -8,11 +9,12 @@ import Logo from '../../assets/logo.png';
 const Signup = () => {
   const [formData, setFormData] = useState({ name: "", email: "", mobile: "" });
   const [errors, setErrors] = useState({ name: "", email: "", mobile: "" });
+  const navigate = useNavigate();  // ✅ Initialize navigate function
 
   // Regular expressions for validation
   const nameRegex = /^[A-Za-z\s]+$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const phoneRegex = /^[0-9]{10}$/;  // Accepts exactly 10 digits
+  const phoneRegex = /^[0-9]{10}$/;
 
   // Handle input changes and validate fields
   const handleChange = (e) => {
@@ -20,7 +22,6 @@ const Signup = () => {
     setFormData({ ...formData, [name]: value });
 
     let errorMessage = "";
-
     if (name === "name" && !nameRegex.test(value)) {
       errorMessage = "Name should only contain alphabets and spaces.";
     } else if (name === "email" && !emailRegex.test(value)) {
@@ -28,7 +29,6 @@ const Signup = () => {
     } else if (name === "mobile" && !phoneRegex.test(value)) {
       errorMessage = "Phone number should be 10 digits.";
     }
-
     setErrors({ ...errors, [name]: errorMessage });
   };
 
@@ -36,7 +36,6 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    // Check if there are any validation errors before submitting
     if (errors.name || errors.email || errors.mobile) {
       toast.error("Please fix validation errors before submitting.", { position: "top-right" });
       return;
@@ -44,21 +43,26 @@ const Signup = () => {
   
     try {
       const response = await signup(formData);
+      console.log("Signup Response:", response); // ✅ Debugging
+  
+      if (!response || !response.user) {
+        console.error("❌ No user data received:", response);
+        toast.error("Signup failed. No user data returned.", { position: "top-right" });
+        return;
+      }
+  
       toast.success("Signup successful!", { position: "top-right" });
   
-      console.log("User added:", response);
-  
-      // ✅ Reset form fields after successful signup
       setFormData({ name: "", email: "", mobile: "" });
-      setErrors({ name: "", email: "", mobile: "" }); // Reset error messages as well
+      setErrors({ name: "", email: "", mobile: "" });
+  
+      // ✅ Navigate only with `currentUser` (we will select `receiver` in chat)
+    navigate("/chat", { state: { currentUser: response.user } });
+
   
     } catch (error) {
-      if (error.message.includes("already exists")) {
-        toast.error("Email or Mobile number already registered.", { position: "top-right" });
-      } else {
-        toast.error("Signup failed. Please try again.", { position: "top-right" });
-      }
       console.error("Signup Error:", error);
+      toast.error("Signup failed. Please try again.", { position: "top-right" });
     }
   };
   

@@ -1,0 +1,23 @@
+const express = require("express");
+const Message = require("../models/Message");
+
+const router = express.Router();
+
+// Get messages between two users
+router.get("/:senderId/:receiverId", async (req, res) => {
+  const { senderId, receiverId } = req.params;
+  try {
+    const messages = await Message.find({
+      $or: [
+        { senderId, receiverId },
+        { senderId: receiverId, receiverId: senderId }
+      ]
+    }).sort("timestamp");
+
+    res.json(messages);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching messages", error });
+  }
+});
+
+module.exports = router;
