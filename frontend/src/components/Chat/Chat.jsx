@@ -11,7 +11,7 @@ const Chat = () => {
   const currentUser = location.state?.currentUser;
   
   const [receiver, setReceiver] = useState(null);
-  const [users, setUsers] = useState([]);  // ✅ Store all users
+  const [users, setUsers] = useState([]);  
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
@@ -19,7 +19,7 @@ const Chat = () => {
     if (!currentUser) {
       console.error("❌ No user data found");
       toast.error("User data missing. Redirecting to signup.", { position: "top-right" });
-      navigate("/"); // ✅ Redirect back to signup if user data is missing
+      navigate("/");
       return;
     }
 
@@ -31,12 +31,12 @@ const Chat = () => {
       })
       .catch((err) => console.error("❌ Error fetching users:", err));
 
-    // ✅ Listen for new messages
-    socket.on("receiveMessage", (newMessage) => {
-      setMessages((prev) => [...prev, newMessage]);
-    });
+    // ✅ Notify the server that the user is online
+    socket.emit("userOnline", currentUser._id);
 
-    return () => socket.off("receiveMessage");
+    return () => {
+      socket.emit("userOffline", currentUser._id);
+    };
   }, [currentUser, navigate]);
 
   useEffect(() => {
@@ -46,6 +46,21 @@ const Chat = () => {
     axios.get(`${API_BASE_URL}/api/messages/${currentUser._id}/${receiver._id}`)
       .then((res) => setMessages(res.data))
       .catch((err) => console.error("❌ Error fetching messages:", err));
+
+    // ✅ Listen for new messages and update state in real-time
+    const handleNewMessage = (newMessage) => {
+      console.log("📩 Received new message:", newMessage);
+      if (
+        (newMessage.senderId === receiver._id && newMessage.receiverId === currentUser._id) || 
+        (newMessage.senderId === currentUser._id && newMessage.receiverId === receiver._id)
+      ) {
+        setMessages((prev) => [...prev, newMessage]);
+      }
+    };
+
+    socket.on("receiveMessage", handleNewMessage);
+
+    return () => socket.off("receiveMessage", handleNewMessage);
   }, [receiver, currentUser]);
 
   const sendMessage = () => {

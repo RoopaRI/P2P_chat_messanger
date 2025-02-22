@@ -68,8 +68,6 @@ io.on("connection", (socket) => {
       const receiverSocketId = onlineUsers.get(receiverId);
       if (receiverSocketId) {
         io.to(receiverSocketId).emit("receiveMessage", newMessage);
-        newMessage.delivered = true;
-        await newMessage.save();
       }
     } catch (error) {
       console.error("❌ Error saving message:", error);
