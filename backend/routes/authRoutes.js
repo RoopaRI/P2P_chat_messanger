@@ -6,7 +6,7 @@ const router = express.Router();
 // Fetch all users
 router.get("/users", async (req, res) => {
     try {
-      const users = await User.find({}, { password: 0 }); // ✅ Exclude passwords
+      const users = await User.find({}, { password: 0 });
       res.json(users);
     } catch (error) {
       res.status(500).json({ message: "Error fetching users", error });
@@ -22,19 +22,17 @@ router.post("/signup", async (req, res) => {
     }
 
     // Check if email or mobile already exists
-    const existingUser = await User.findOne({ $or: [{ email }, { mobile }] });
-    if (existingUser) {
-      return res.status(400).json({ message: "Email or Mobile already exists" });
+    let user = await User.findOne({ $or: [{ email }, { mobile }] });
+    if (user) {
+      return res.status(200).json({ message: "User reconnected!", user });
     }
 
-    const newUser = new User({ name, email, mobile });
-    await newUser.save();
+    // Create new user if not found
+    user = new User({ name, email, mobile });
+    await user.save();
 
-    res.status(201).json({ message: "User created successfully", user: newUser });
+    res.status(201).json({ message: "User created successfully", user });
   } catch (error) {
-    if (error.code === 11000) {
-      return res.status(400).json({ message: "Email or Mobile number already registered" });
-    }
     res.status(500).json({ message: "Error signing up", error });
   }
 });

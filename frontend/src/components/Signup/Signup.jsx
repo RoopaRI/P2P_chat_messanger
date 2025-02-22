@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { signup } from "../../services/authService";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";  // ✅ Import useNavigate
+import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import "./Signup.css";
 import Logo from '../../assets/logo.png';
@@ -9,7 +9,7 @@ import Logo from '../../assets/logo.png';
 const Signup = () => {
   const [formData, setFormData] = useState({ name: "", email: "", mobile: "" });
   const [errors, setErrors] = useState({ name: "", email: "", mobile: "" });
-  const navigate = useNavigate();  // ✅ Initialize navigate function
+  const navigate = useNavigate();
 
   // Regular expressions for validation
   const nameRegex = /^[A-Za-z\s]+$/;
@@ -35,37 +35,35 @@ const Signup = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (errors.name || errors.email || errors.mobile) {
       toast.error("Please fix validation errors before submitting.", { position: "top-right" });
       return;
     }
-  
+
     try {
       const response = await signup(formData);
-      console.log("Signup Response:", response); // ✅ Debugging
-  
+      console.log("Signup Response:", response);
+
       if (!response || !response.user) {
         console.error("❌ No user data received:", response);
         toast.error("Signup failed. No user data returned.", { position: "top-right" });
         return;
       }
-  
-      toast.success("Signup successful!", { position: "top-right" });
-  
+
+      toast.success(response.message, { position: "top-right" });
+
       setFormData({ name: "", email: "", mobile: "" });
       setErrors({ name: "", email: "", mobile: "" });
-  
-      // ✅ Navigate only with `currentUser` (we will select `receiver` in chat)
-    navigate("/chat", { state: { currentUser: response.user } });
 
-  
+      // ✅ Navigate only with `currentUser`
+      navigate("/chat", { state: { currentUser: response.user } });
+
     } catch (error) {
       console.error("Signup Error:", error);
-      toast.error("Signup failed. Please try again.", { position: "top-right" });
+      toast.error(error.message || "Signup failed. Please try again.", { position: "top-right" });
     }
   };
-  
 
   return (
     <div className="signup-container">

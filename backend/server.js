@@ -10,7 +10,7 @@ const authRoutes = require("./routes/authRoutes");
 const messageRoutes = require("./routes/messageRoutes");
 
 const corsOptions = {
-  origin: "http://localhost:3000", // ✅ Allow frontend to connect
+  origin: "http://localhost:3000",
   methods: ["GET", "POST"],
   credentials: true,
 };
@@ -21,11 +21,9 @@ const io = new Server(server, { cors: corsOptions });
 
 const PORT = process.env.PORT || 5000;
 
-// Middleware
 app.use(express.json());
 app.use(cors(corsOptions));
 
-// MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -35,13 +33,11 @@ mongoose.connect(process.env.MONGO_URI, {
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
-// WebSocket Connection Handling
 const onlineUsers = new Map();
 
 io.on("connection", (socket) => {
   console.log(`✅ User connected: ${socket.id}`);
 
-  // Store user in onlineUsers map
   socket.on("userOnline", (userId) => {
     if (userId) {
       onlineUsers.set(userId, socket.id);
@@ -50,7 +46,6 @@ io.on("connection", (socket) => {
     }
   });
 
-  // Handle sending messages
   socket.on("sendMessage", async ({ senderId, receiverId, content }) => {
     console.log("📩 Received message data:", { senderId, receiverId, content });
 
@@ -64,7 +59,6 @@ io.on("connection", (socket) => {
       await newMessage.save();
       console.log("✅ Message saved:", newMessage);
 
-      // If receiver is online, send the message in real-time
       const receiverSocketId = onlineUsers.get(receiverId);
       if (receiverSocketId) {
         io.to(receiverSocketId).emit("receiveMessage", newMessage);
@@ -74,7 +68,6 @@ io.on("connection", (socket) => {
     }
   });
 
-  // Handle user disconnection
   socket.on("disconnect", () => {
     for (const [userId, socketId] of onlineUsers.entries()) {
       if (socketId === socket.id) {
