@@ -29,6 +29,9 @@
     border-radius: 12px;
     font-size: 14px;
     word-wrap: break-word;
+    position: relative; /* ✅ Allows timestamp positioning inside */
+    display: flex;
+    flex-direction: column;
 }
 
 /* Sent messages (current user) - Right Aligned */
@@ -60,4 +63,11 @@
     width: 100%;
     border-top: 1px solid #ddd;
     background-color: #f9f9f9;
+}
+
+/* Timestamp Styling */
+.timestamp {
+    font-size: 8px;
+    color: gray;
+    align-self: flex-end; /* ✅ Aligns timestamp to bottom-right */
 }

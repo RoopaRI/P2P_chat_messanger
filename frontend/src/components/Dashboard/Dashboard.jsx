@@ -74,6 +74,7 @@ const Dashboard = () => {
       senderId: currentUser._id,
       receiverId: receiver._id,
       content: messageContent,
+      timestamp: new Date().toISOString(), // ✅ Send timestamp
     };
 
     socket.emit("sendMessage", newMessage);

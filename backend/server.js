@@ -47,7 +47,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("sendMessage", async ({ senderId, receiverId, content }) => {
-    console.log("📩 Received message data:", { senderId, receiverId, content });
+    console.log("📩 Received message data:", { senderId, receiverId, content, timestamp: new Date() });
 
     if (!senderId || !receiverId || !content) {
       console.error("❌ Missing required fields:", { senderId, receiverId, content });
@@ -55,7 +55,7 @@ io.on("connection", (socket) => {
     }
 
     try {
-      const newMessage = new Message({ senderId, receiverId, content });
+      const newMessage = new Message({ senderId, receiverId, content, timestamp: new Date() });
       await newMessage.save();
       console.log("✅ Message saved:", newMessage);
 
