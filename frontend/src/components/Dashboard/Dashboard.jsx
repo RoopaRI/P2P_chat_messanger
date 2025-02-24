@@ -6,7 +6,7 @@ import API_BASE_URL from "../../config";
 import { toast } from "react-toastify";
 import UserList from "../UserList/UserList";
 import MessageList from "../MessageList/MessageList";
-import MessageInput from "../MessageInput/MessageInput";
+import "./Dashboard.css";
 
 const Dashboard = () => {
   const location = useLocation();
@@ -82,18 +82,17 @@ const Dashboard = () => {
 
   return (
     <div className="chat-container">
-      <h2>Welcome, {currentUser?.name}! Start Chatting</h2>
+      <div className="sidebar">
+        {/* ✅ User Selection */}
+        <UserList users={users} setReceiver={setReceiver} />
+      </div>
 
-      {/* ✅ User Selection */}
-      <UserList users={users} setReceiver={setReceiver} />
+      <div className="chat-area">
+        {receiver && <h2 className="chat-header">{receiver.name}</h2>}
 
-      {receiver && <h2>Chat with {receiver.name}</h2>}
-
-      {/* ✅ Messages */}
-      <MessageList messages={messages} currentUser={currentUser} />
-
-      {/* ✅ Message Input */}
-      <MessageInput sendMessage={sendMessage} />
+        {/* ✅ Messages and Input combined */}
+        <MessageList messages={messages} currentUser={currentUser} sendMessage={sendMessage} />
+      </div>
     </div>
   );
 };

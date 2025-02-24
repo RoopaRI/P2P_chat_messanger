@@ -1,0 +1,63 @@
+.messages-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #eee;
+    overflow: hidden; /* Prevents full-page scrolling */
+    padding: 10px;
+    position: relative; /* Makes sure the input stays inside */
+}
+
+/* Message list should scroll independently */
+.message-list {
+    flex: 1;
+    overflow-y: auto; /* ✅ Enables scrolling only for messages */
+    padding-bottom: 10px; /* Prevents last message from being cut off */
+}
+
+/* Message wrapper for alignment */
+.message-wrapper {
+    display: flex;
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+/* Style for messages */
+.message {
+    max-width: 60%; /* Limits message width */
+    padding: 8px 12px;
+    border-radius: 12px;
+    font-size: 14px;
+    word-wrap: break-word;
+}
+
+/* Sent messages (current user) - Right Aligned */
+.message-wrapper.sent {
+    justify-content: flex-end; /* ✅ Align to the right */
+}
+
+.message.sent {
+    background-color: #6E80A4;
+    color: white;
+    border-bottom-right-radius: 0px;
+    text-align: right;
+}
+
+/* Received messages (other user) - Left Aligned */
+.message-wrapper.received {
+    justify-content: flex-start; /* ✅ Align to the left */
+}
+
+.message.received {
+    background-color: #f0f0f0;
+    color: black;
+    border-bottom-left-radius: 0px;
+    text-align: left;
+}
+
+/* ✅ Keeps Message Input inside the container */
+.message-input-wrapper {
+    width: 100%;
+    border-top: 1px solid #ddd;
+    background-color: #f9f9f9;
+}

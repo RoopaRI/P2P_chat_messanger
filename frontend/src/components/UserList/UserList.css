@@ -1,0 +1,62 @@
+.user-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+    height:100vh;
+    background-color: #f9f9f9;
+    padding: 15px;
+    
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo-container {
+    text-align: start;
+    margin-bottom: 10px;
+  }
+  
+  .signup-logo {
+    width: 100px;
+  }
+  
+  .user-search {
+    width: 90%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  .user-items {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  
+  .user-item {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .user-item:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .user-name {
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  .user-email {
+    font-size: 12px;
+    color: gray;
+  }
+  
+  .no-users {
+    text-align: center;
+    color: #888;
+    font-size: 14px;
+  }
+  

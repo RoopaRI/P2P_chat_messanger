@@ -1,0 +1,68 @@
+/* Main chat container */
+.chat-container {
+    display: flex;
+    height: 100vh;
+    width:100vw;
+  }
+  
+  /* Sidebar (User List) */
+  .sidebar {
+    width: 25%;
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-right: 2px solid #ddd;
+    color:black;
+  }
+  
+  /* Chat area (Messages + Input) */
+  .chat-area {
+    flex: 1;  /* Takes the remaining space */
+    display: flex;
+    flex-direction: column;
+    /* padding:10px; */
+    background-color: #ffffff;
+    color:black
+  }
+  
+  /* Messages container - occupies most of chat area */
+  .messages-container {
+    flex: 1; /* Makes it take all available height */
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #eee;
+  }
+  
+  /* Message Input - Sticks at bottom */
+  .message-input-container {
+    width:100%;
+    /* padding: 10px; */
+    border-top: 1px solid #ddd;
+    display: flex;
+    gap: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  /* Style input field */
+  .message-input-container input {
+    flex: 1;
+    padding: 10psx;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Style send button */
+  .message-input-container button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #6E80A4;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .message-input-container button:hover {
+    background-color: #5a6a90;
+  }
+  
