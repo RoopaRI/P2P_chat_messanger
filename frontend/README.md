@@ -1,70 +1,89 @@
-# Getting Started with Create React App
+# P2P Chat Messenger
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+P2P Chat Messenger is a real-time chat application built with React.js, Node.js (Express.js), MongoDB (Atlas), and Socket.IO. The app allows users to sign up, search for other users, and engage in instant messaging with real-time updates.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **User Signup:** No login required, users sign up with Name, Email, and Mobile Number.
+- **Real-time Chat:** Messages are exchanged instantly using WebSockets.
+- **User List & Search:** Fetch and search registered users to start conversations.
+- **Message History:** Messages are stored in MongoDB and fetched when opening a chat.
+- **Message Timestamps:** Messages include timestamps displayed inside each message bubble.
+- **Auto-scroll to Last Message:** Ensures the latest message is always visible.
+- **Send on Enter Key:** Users can send messages by pressing "Enter."
+- **User Details Panel:** Clicking on a user displays their profile details.
+- **Responsive Layout:** Sidebar (User List), Chat Area (Messages), and User Details.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tech Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Frontend:
+- React.js
+- React Router
+- Axios
+- Socket.IO Client
+- CSS (Responsive UI)
 
-### `npm test`
+### Backend:
+- Node.js with Express.js
+- MongoDB (Atlas) for database
+- Socket.IO for real-time messaging
+- CORS for cross-origin requests
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation
 
-### `npm run build`
+### Prerequisites:
+- Node.js installed
+- MongoDB Atlas account
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
+### Steps to Run:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### Clone the Repository
+```sh
+git clone https://github.com/your-repo/p2p-chat-messenger.git
+cd p2p-chat-messenger
+```
+---
+### Setup Backend
+```sh
+cd backend
+npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Create a .env file in the backend folder and add:
+```ini
+MONGO_URI=mongodb+srv://your_username:your_password@your_cluster.mongodb.net/chat_users
+PORT=5000
+```
+### Start the backend server:
+```sh
+npm start
+```
+---
+### Setup Frontend
+```sh 
+cd ../frontend
+npm install
+```
 
-### `npm run eject`
+### Update config.js:
+```sh
+const API_BASE_URL = "http://localhost:5000";
+export default API_BASE_URL;
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Start the frontend:
+```sh
+npm start
+```
+---
+## Usage
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. **Sign up** using Name, Email, and Mobile Number.
+2. **Search for users** in the sidebar.
+3. **Click on a user** to open the chat.
+4. **Send messages** instantly via WebSockets.
+5. **Click on the username** in the chat header to view user details.
+6. **Close user details** to return to the chat layout.
