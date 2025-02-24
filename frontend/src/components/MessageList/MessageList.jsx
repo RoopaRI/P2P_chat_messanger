@@ -11,7 +11,7 @@ const MessageList = ({ messages, currentUser, sendMessage }) => {
             key={idx} 
             className={`message-wrapper ${msg.senderId === currentUser._id ? "sent" : "received"}`}
           >
-            <p className="message">{msg.content}</p>
+            <p className={`message ${msg.senderId === currentUser._id ? "sent" : "received"}`}>{msg.content}</p>
           </div>
         ))}
       </div>

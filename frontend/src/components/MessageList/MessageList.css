@@ -37,22 +37,22 @@
 }
 
 .message.sent {
-    background-color: #6E80A4;
-    color: white;
+    background-color: #dee9ff;
+    color: black;
     border-bottom-right-radius: 0px;
     text-align: right;
 }
 
 /* Received messages (other user) - Left Aligned */
-.message-wrapper.received {
+.message-wrapper.received .message {
     justify-content: flex-start; /* ✅ Align to the left */
 }
 
 .message.received {
-    background-color: #f0f0f0;
-    color: black;
+    background-color: #ffffff;
+    color: black ;
     border-bottom-left-radius: 0px;
-    text-align: left;
+    text-align: center;
 }
 
 /* ✅ Keeps Message Input inside the container */

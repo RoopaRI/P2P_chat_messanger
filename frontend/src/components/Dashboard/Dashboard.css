@@ -26,43 +26,9 @@
     color:black
   }
   
-  /* Messages container - occupies most of chat area */
-  .messages-container {
-    flex: 1; /* Makes it take all available height */
-    overflow-y: auto;
-    padding: 10px;
-    background-color: #eee;
-  }
   
-  /* Message Input - Sticks at bottom */
-  .message-input-container {
-    width:100%;
-    /* padding: 10px; */
-    border-top: 1px solid #ddd;
-    display: flex;
-    gap: 10px;
-    background-color: #f9f9f9;
-  }
   
-  /* Style input field */
-  .message-input-container input {
-    flex: 1;
-    padding: 10psx;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
   
-  /* Style send button */
-  .message-input-container button {
-    padding: 10px 15px;
-    border: none;
-    background-color: #6E80A4;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-  }
   
-  .message-input-container button:hover {
-    background-color: #5a6a90;
-  }
+  
   

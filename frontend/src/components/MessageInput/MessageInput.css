@@ -16,9 +16,9 @@
 
 .send-button {
     padding: 10px 15px;
-    border: none;
-    background-color: #6E80A4;
-    color: white;
+    border: 1px solid black;
+    background-color: #dee9ff;
+    color: black;
     border-radius: 5px;
     cursor: pointer;
 }
