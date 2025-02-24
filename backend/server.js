@@ -10,7 +10,7 @@ const authRoutes = require("./routes/authRoutes");
 const messageRoutes = require("./routes/messageRoutes");
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: ["http://localhost:3000", "https://p2-p-chat-messanger.vercel.app"], // ✅ Allow frontend on Vercel
   methods: ["GET", "POST"],
   credentials: true,
 };
