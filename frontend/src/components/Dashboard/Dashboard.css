@@ -2,33 +2,57 @@
 .chat-container {
     display: flex;
     height: 100vh;
-    width:100vw;
-  }
-  
-  /* Sidebar (User List) */
-  .sidebar {
+    width: 100vw;
+}
+
+/* Sidebar (User List) */
+.sidebar {
     width: 25%;
     background-color: #f0f0f0;
     display: flex;
     flex-direction: column;
     gap: 10px;
     border-right: 2px solid #ddd;
-    color:black;
-  }
-  
-  /* Chat area (Messages + Input) */
-  .chat-area {
+    color: black;
+}
+
+/* Chat area (Messages + Input) */
+.chat-area {
     flex: 1;  /* Takes the remaining space */
     display: flex;
     flex-direction: column;
-    /* padding:10px; */
     background-color: #ffffff;
-    color:black
-  }
-  
-  
-  
-  
-  
-  
-  
+    color: black;
+    transition: width 0.3s ease-in-out; /* Smooth transition for expanding */
+}
+
+
+/* === New Styles for User Detail === */
+
+/* When User Detail is visible, shrink chat area */
+.chat-container.expanded .chat-area {
+    width: 50%;
+}
+
+/* User Detail Container */
+.user-detail {
+    width: 25%;
+    background-color: #ffffff;
+    border-left: 2px solid #ddd;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: small;
+}
+
+/* Close button */
+.close-button {
+    background: white;
+    color: black;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    align-self: flex-start;
+    border-radius: 5px;
+}

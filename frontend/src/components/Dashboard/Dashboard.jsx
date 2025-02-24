@@ -6,6 +6,7 @@ import API_BASE_URL from "../../config";
 import { toast } from "react-toastify";
 import UserList from "../UserList/UserList";
 import MessageList from "../MessageList/MessageList";
+import UserDetail from "../UserDetail/UserDetail";
 import "./Dashboard.css";
 
 const Dashboard = () => {
@@ -16,6 +17,7 @@ const Dashboard = () => {
   const [receiver, setReceiver] = useState(null);
   const [users, setUsers] = useState([]);  
   const [messages, setMessages] = useState([]);
+  const [showUserDetail, setShowUserDetail] = useState(false);
 
   useEffect(() => {
     if (!currentUser) {
@@ -82,18 +84,25 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="chat-container">
+    <div className={`chat-container ${showUserDetail ? "expanded" : ""}`}>
       <div className="sidebar">
         {/* ✅ User Selection */}
         <UserList users={users} setReceiver={setReceiver} />
       </div>
 
       <div className="chat-area">
-        {receiver && <h2 className="chat-header">{receiver.name}</h2>}
+        {receiver && (
+          <h2 className="chat-header" onClick={() => setShowUserDetail(true)}>
+            {receiver.name}
+          </h2>
+        )}
 
         {/* ✅ Messages and Input combined */}
         <MessageList messages={messages} currentUser={currentUser} sendMessage={sendMessage} />
       </div>
+
+      {/* ✅ Show User Details if enabled */}
+      {showUserDetail && <UserDetail receiver={receiver} onClose={() => setShowUserDetail(false)} />}
     </div>
   );
 };

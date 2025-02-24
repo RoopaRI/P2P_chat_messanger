@@ -13,6 +13,19 @@ router.get("/users", async (req, res) => {
     }
   });
 
+// ✅ Fetch user details by ID
+router.get("/user/:id", async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id, { password: 0 }); // Exclude password
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      res.json(user);
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching user details", error });
+    }
+  });
+
 // SignUp Route
 router.post("/signup", async (req, res) => {
   const { name, email, mobile } = req.body;
